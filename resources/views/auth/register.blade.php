@@ -7,7 +7,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Register</div>
 					<div class="panel-body">
-						<form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
+						<form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}" novalidate>
 							{{ csrf_field() }}
 
 							<div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
@@ -66,7 +66,7 @@
 
 								<div class="col-md-6">
 									<input id="role_type_orchestra" type="checkbox" class="" name="role_type[]"
-									       value="orchestra" checked="checked">
+									       value="orchestra" checked="checked" onchange="changeOrchestra()">
 									<label for="role_type_orchestra">Orchestra</label>
 									<br>
 									<input id="role_type_musician" type="checkbox" class="" name="role_type[]"
@@ -76,6 +76,22 @@
 									@if ($errors->has('role_type'))
 										<span class="help-block">
                                         <strong>{{ $errors->first('role_type') }}</strong>
+                                    </span>
+									@endif
+								</div>
+							</div>
+
+							<div id="orchestra_name"
+							     class="form-group{{ $errors->has('orchestra') ? ' has-error' : '' }}">
+								<label for="orchestra_name" class="col-md-4 control-label">Orchestra name</label>
+
+								<div class="col-md-6">
+									<input id="orchestra_name" type="text" class="form-control" name="orchestra_name"
+									       value="{{ old('orchestra') }}" required>
+
+									@if ($errors->has('orchestra_name'))
+										<span class="help-block">
+                                        <strong>{{ $errors->first('orchestra_name') }}</strong>
                                     </span>
 									@endif
 								</div>
@@ -132,4 +148,17 @@
 			</div>
 		</div>
 	</div>
+@endsection
+
+@section('scripts')
+	<script type="text/javascript">
+		function changeOrchestra() {
+			if ($("#role_type_orchestra").is(":checked")) {
+				$("#orchestra_name").show();
+			}
+			else {
+				$("#orchestra_name").hide();
+			}
+		}
+	</script>
 @endsection

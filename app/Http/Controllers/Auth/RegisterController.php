@@ -52,6 +52,7 @@ class RegisterController extends Controller
             'surname' => 'required|max:255',
             'gender' => 'required',
             'role_type' => 'required',
+            'orchestra_name' => 'required_if:role_type.0,orchestra|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -71,6 +72,7 @@ class RegisterController extends Controller
             'gender' => $data['gender'],
             'orchestra' => in_array('orchestra', $data['role_type']) ? true : false,
             'musician' => in_array('musician', $data['role_type']) ? true : false,
+            'orchestra_name' => in_array('orchestra', $data['role_type']) ? $data['orchestra_name'] : '',
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);

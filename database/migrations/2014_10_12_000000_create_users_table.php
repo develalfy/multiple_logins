@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->boolean('orchestra')->default(false);
             $table->boolean('musician')->default(false);
             $table->boolean('member')->default(false);
+            $table->string('orchestra_name')->default('');
             $table->string('email')->unique();
             $table->string('password');
             $table->string('confirmation')->default('');
