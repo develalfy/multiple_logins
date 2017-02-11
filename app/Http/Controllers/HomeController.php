@@ -4,6 +4,7 @@ namespace Sleighdogs\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
+use Sleighdogs\Http\Controllers\RolesController;
 
 class HomeController extends Controller
 {
@@ -23,10 +24,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->confirmed === 0) {
+        if ($this->checkUserConfirmation() === 0) {
             return view('confirmation');
         }
 
-        return view('home');
+        $roles = new RolesController();
+        $user_type = $roles->roles[Auth::user()->current_role];
+
+        return view('home', compact('user_type'));
+    }
+
+    private function checkUserConfirmation()
+    {
+        return Auth::user()->confirmed;
     }
 }

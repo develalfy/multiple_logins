@@ -20,3 +20,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('confirmation/resend', 'ConfirmationController@resend')->name('confirmation.resend');
 Route::get('confirmation/activate/{token}', 'ConfirmationController@activate')->name('confirmation.activate');
+
+Route::get('/role/select', 'RolesController@select');
+Route::get('/role/update/{role}', 'RolesController@update')->name('roles.update');

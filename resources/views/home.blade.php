@@ -11,7 +11,7 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
+                    You are logged in as {{ strtoupper($user_type) }} !
                 </div>
             </div>
         </div>
