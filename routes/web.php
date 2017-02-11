@@ -18,4 +18,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
-Route::get('confirmation/resend', 'ConfirmationController@index')->name('confirmation.resend');
+Route::get('confirmation/resend', 'ConfirmationController@resend')->name('confirmation.resend');
+Route::get('confirmation/activate/{token}', 'ConfirmationController@activate')->name('confirmation.activate');
