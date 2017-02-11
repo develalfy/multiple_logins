@@ -8,28 +8,32 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Sleighdogs\User;
 
 
 class ConfirmationController extends Controller
 {
+    /**
+     * @return \Illuminate\Http\RedirectResponse|string
+     */
     public function resend()
     {
         $token = Str::random(60);
-//        $link = "http://$_SERVER[HTTP_HOST]/public/index.php/confirmation/activate/$token";
-        $link = "http://$_SERVER[HTTP_HOST]/confirmation/activate/$token";
-
-        // Insert Token to database
-        // Send mail with the same token
-
+        $link = route('confirmation.activate', $token);
         $data = [
             'title' => 'simple title',
             'body' => "please, click here to activate your account \n" . 'Click here: ' . $link
         ];
+
         try {
             Mail::raw($data['body'], function ($message) use ($data) {
                 $message->from(env('MAIL_USERNAME'), env('MAIL_SENDER_NAME'));
                 $message->to(Auth::user()->email)->subject($data['title']);
             });
+
+            $user = User::find(Auth::user()->id);
+            $user->confirmation = $token;
+            $user->save();
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -39,8 +43,22 @@ class ConfirmationController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * @param $token
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function activate($token)
     {
-        dd($token);
+        $user = User::find(Auth::user()->id);
+        if ($token != $user->confirmation) {
+            return redirect()->to('/home');
+        }
+
+        $user->confirmed = 1;
+        $user->save();
+
+        Session::flash('flash_message', 'E-mail has been verified');
+
+        return redirect()->to('/home');
     }
 }
