@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Sleighdogs\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -9,7 +10,6 @@ class HomeController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -23,6 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->confirmed === 0) {
+            return view('confirmation');
+        }
+
         return view('home');
     }
 }

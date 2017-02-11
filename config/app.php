@@ -171,11 +171,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Sleighdogs\Providers\AppServiceProvider::class,
+        Sleighdogs\Providers\AuthServiceProvider::class,
+        // Sleighdogs\Providers\BroadcastServiceProvider::class,
+        Sleighdogs\Providers\EventServiceProvider::class,
+        Sleighdogs\Providers\RouteServiceProvider::class,
 
     ],
 
