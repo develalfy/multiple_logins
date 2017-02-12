@@ -57,6 +57,7 @@ class Kernel extends HttpKernel
         'guest' => \Sleighdogs\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'check_confirmation' => \Sleighdogs\Http\Middleware\CheckConfirmation::class
+        'check_confirmation' => \Sleighdogs\Http\Middleware\CheckConfirmation::class,
+        'check_role' => \Sleighdogs\Http\Middleware\CheckRole::class
     ];
 }

@@ -3,9 +3,8 @@
 namespace Sleighdogs\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
-class CheckConfirmation
+class CheckRole
 {
     /**
      * Handle an incoming request.
@@ -16,10 +15,9 @@ class CheckConfirmation
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->confirmed === 0) {
-            return redirect()->route('confirmation.view');
+        if (session('user_role') == null) {
+            return redirect()->route('role.select');
         }
-
         return $next($request);
     }
 }

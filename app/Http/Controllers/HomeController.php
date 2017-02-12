@@ -16,6 +16,7 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('check_confirmation');
+        $this->middleware('check_role');
     }
 
     /**

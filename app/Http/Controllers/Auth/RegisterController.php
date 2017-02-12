@@ -73,6 +73,7 @@ class RegisterController extends Controller
             'orchestra' => in_array('orchestra', $data['role_type']) ? true : false,
             'musician' => in_array('musician', $data['role_type']) ? true : false,
             'orchestra_name' => in_array('orchestra', $data['role_type']) ? $data['orchestra_name'] : '',
+            'current_role' => in_array('orchestra', $data['role_type']) ? 0 : 1, // if orchestra selected put it as current role else put musician
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);

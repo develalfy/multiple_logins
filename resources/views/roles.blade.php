@@ -12,7 +12,7 @@
 
 					<div class="panel-body">
 						<div class="text-center bs-callout bs-callout-warning" id="callout-helper-pull-navbar">
-							<h4>Please, select a role to continue using!</h4>
+							<h4>Please, select a role to continue!</h4>
 							@foreach($user_roles as $key => $role)
 								<a href="{{ route('roles.update', $key) }}"
 								   class="btn btn-group-lg btn-primary">{{ strtoupper($role) }}</a>

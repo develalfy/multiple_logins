@@ -47,6 +47,8 @@ class RolesController extends Controller
         $user->current_role = $role;
         $user->save();
 
+        session(['user_role' => $role]);
+
         return redirect('/home');
     }
 }

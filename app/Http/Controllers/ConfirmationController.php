@@ -13,6 +13,13 @@ use Sleighdogs\User;
 
 class ConfirmationController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('check_role');
+    }
+
     /**
      * @return \Illuminate\Http\RedirectResponse|string
      */
@@ -70,6 +77,9 @@ class ConfirmationController extends Controller
      */
     public function confirm()
     {
+        if (Auth::user()->confirmed === 1) {
+            return redirect()->route('home');
+        }
         return view('confirmation');
     }
 
