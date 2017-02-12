@@ -13,6 +13,16 @@ class RolesController extends Controller
     // member    => 2
     public $roles = ['orchestra', 'musician', 'member'];
 
+
+    /**
+     * RolesController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('check_confirmation');
+    }
+
     /**
      * Select Role after login
      * @return \Illuminate\Http\Response

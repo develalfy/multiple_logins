@@ -61,4 +61,16 @@ class ConfirmationController extends Controller
 
         return redirect()->to('/home');
     }
+
+
+    /**
+     * View confirmation page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function confirm()
+    {
+        return view('confirmation');
+    }
+
 }

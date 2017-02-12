@@ -11,7 +11,12 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
+                    {{ $user_type == 'orchestra' ? 'Welcome ' . Auth::user()->orchestra_name . " - " : '' }}
                     You are logged in as {{ strtoupper($user_type) }} !
+
+	                @if($user_type == 'orchestra')
+		                <br /> You can add new member from <a href="">HERE</a>
+					@endif
                 </div>
             </div>
         </div>

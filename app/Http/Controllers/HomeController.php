@@ -15,6 +15,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('check_confirmation');
     }
 
     /**
@@ -24,18 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if ($this->checkUserConfirmation() === 0) {
-            return view('confirmation');
-        }
-
         $roles = new RolesController();
         $user_type = $roles->roles[Auth::user()->current_role];
 
         return view('home', compact('user_type'));
-    }
-
-    private function checkUserConfirmation()
-    {
-        return Auth::user()->confirmed;
     }
 }
