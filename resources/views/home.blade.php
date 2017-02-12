@@ -15,7 +15,7 @@
                     You are logged in as {{ strtoupper($user_type) }} !
 
 	                @if($user_type == 'orchestra')
-		                <br /> You can add new member from <a href="">HERE</a>
+		                <br /> You can add new member from <a href="{{ route('members.add') }}">HERE</a>
 					@endif
                 </div>
             </div>

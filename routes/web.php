@@ -18,9 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('confirmation', 'ConfirmationController@confirm')->name('confirmation.view');
-Route::get('confirmation/resend', 'ConfirmationController@resend')->name('confirmation.resend');
-Route::get('confirmation/activate/{token}', 'ConfirmationController@activate')->name('confirmation.activate');
+Route::get('/confirmation', 'ConfirmationController@confirm')->name('confirmation.view');
+Route::get('/confirmation/resend', 'ConfirmationController@resend')->name('confirmation.resend');
+Route::get('/confirmation/activate/{token}', 'ConfirmationController@activate')->name('confirmation.activate');
 
 Route::get('/role/select', 'RolesController@select')->name('role.select');
 Route::get('/role/update/{role}', 'RolesController@update')->name('roles.update');
+
+Route::get('/members/add', 'MembersController@add')->name('members.add');
+Route::post('/members/add', 'MembersController@insert')->name('members.insert');

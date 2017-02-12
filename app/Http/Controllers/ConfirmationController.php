@@ -17,28 +17,34 @@ class ConfirmationController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('check_role');
     }
 
     /**
+     * @param null $email
      * @return \Illuminate\Http\RedirectResponse|string
      */
-    public function resend()
+    public function resend($email = null)
     {
         $token = Str::random(60);
         $link = route('confirmation.activate', $token);
+        if ($email == null) {
+            $email = Auth::user()->email;
+            $member_body = "please, click here to activate your account \n" . $link;
+        }else {
+            $member_body = "please, reset your password \n Click here: ". route('password.request');
+        }
         $data = [
             'title' => 'simple title',
-            'body' => "please, click here to activate your account \n" . 'Click here: ' . $link
+            'body' => $member_body
         ];
 
         try {
-            Mail::raw($data['body'], function ($message) use ($data) {
+            Mail::raw($data['body'], function ($message) use ($data, $email) {
                 $message->from(env('MAIL_USERNAME'), env('MAIL_SENDER_NAME'));
-                $message->to(Auth::user()->email)->subject($data['title']);
+                $message->to($email)->subject($data['title']);
             });
 
-            $user = User::find(Auth::user()->id);
+            $user = User::where('email', $email)->first();
             $user->confirmation = $token;
             $user->save();
         } catch (Exception $e) {
